@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/GestureDetector/GestureDetector.iml" filepath="$PROJECT_DIR$/GestureDetector/GestureDetector.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MyView02.iml" filepath="$PROJECT_DIR$/MyView02.iml" />
+    </modules>
+  </component>
+</project>
