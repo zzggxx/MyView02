@@ -1,4 +1,4 @@
-package com.example.will.myview02.click;
+package com.u9time.clicview.click;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
@@ -47,7 +47,6 @@ public class ClickView extends View {
                 startRawY = rawY;
                 break;
             case MotionEvent.ACTION_MOVE:
-
                 break;
             case MotionEvent.ACTION_UP:
                 if (x + getLeft() < getRight() && y + getTop() < getBottom()) {
@@ -74,4 +73,5 @@ public class ClickView extends View {
     public void setOnClickListener(@Nullable OnClickListener l) {
         mListener = l;
     }
+
 }

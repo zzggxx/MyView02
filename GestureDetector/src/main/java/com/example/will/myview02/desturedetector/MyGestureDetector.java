@@ -6,8 +6,31 @@ import android.view.MotionEvent;
 
 /**
  * 主要是为了测试其封装的成熟事件所对应的准确的事件点.更好的学习可以自己参见源码进行定义
+ * 注意是继承并且是SimpleOnGestureListener,一般都是类似的方式
  */
-public class MyGestureDetector extends GestureDetector.SimpleOnGestureListener {
+public class MyGestureDetector extends GestureDetector.SimpleOnGestureListener{
+    public MyGestureDetector() {
+        super();
+    }
+
+    @Override
+    public boolean onDoubleTap(MotionEvent e) {
+        Log.i(getClass().getName(), "onDoubleTap-----" + Utils.getActionName(e.getAction()));
+        return super.onDoubleTap(e);
+    }
+
+    /*双击事件中间发生的回调事件*/
+    @Override
+    public boolean onDoubleTapEvent(MotionEvent e) {
+        Log.i(getClass().getName(), "onDoubleTapEvent-----" + Utils.getActionName(e.getAction()));
+        return super.onDoubleTapEvent(e);
+    }
+
+    @Override
+    public boolean onContextClick(MotionEvent e) {
+        return super.onContextClick(e);
+    }
+
     @Override
     public boolean onDown(MotionEvent e) {
         Log.i(getClass().getName(), "onDown-----" + Utils.getActionName(e.getAction()));
@@ -53,6 +76,7 @@ public class MyGestureDetector extends GestureDetector.SimpleOnGestureListener {
 
     @Override
     public boolean onSingleTapConfirmed(MotionEvent e) {
+        Log.i(getClass().getName(), "onSingleTapConfirmed-----" + Utils.getActionName(e.getAction()));
         return super.onSingleTapConfirmed(e);
     }
 }
