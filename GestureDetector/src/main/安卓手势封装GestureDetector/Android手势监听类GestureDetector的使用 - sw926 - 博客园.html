@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)http://www.cnblogs.com/sw926/p/3208158.html -->
+<html lang="zh-cn"><script type="text/javascript" src="./Android手势监听类GestureDetector的使用 - sw926 - 博客园_files/encoder.js.下载"></script><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Android手势监听类GestureDetector的使用 - sw926 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./Android手势监听类GestureDetector的使用 - sw926 - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./Android手势监听类GestureDetector的使用 - sw926 - 博客园_files/bundle-ThinkInside.css">
+<link id="mobile-style" media="only screen and (max-width: 768px)" type="text/css" rel="stylesheet" href="./Android手势监听类GestureDetector的使用 - sw926 - 博客园_files/bundle-ThinkInside-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/sw926/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/sw926/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/sw926/wlwmanifest.xml">
+<script src="./Android手势监听类GestureDetector的使用 - sw926 - 博客园_files/jquery.js.下载" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'sw926', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="./Android手势监听类GestureDetector的使用 - sw926 - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/sw926/"><img id="blogLogo" src="./Android手势监听类GestureDetector的使用 - sw926 - 博客园_files/logo.gif" alt="返回主页"></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/sw926/">sw926</a></h1>
+<h2></h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li><a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/sw926/">首页</a></li>
+<li><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li><a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/sw926">联系</a></li>
+<li><a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/sw926/rss">订阅</a>
+<!--<a id="blog_nav_rss_image" class="aHeaderXML" href="http://www.cnblogs.com/sw926/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<span id="stats_post_count">随笔 - 24&nbsp; </span>
+<span id="stats_article_count">文章 - 0&nbsp; </span>
+<span id="stats-comment_count">评论 - 49</span>
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/sw926/p/3208158.html">Android手势监听类GestureDetector的使用</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><p>在使用自定义视图的时候，对触屏事件的处理是必不可少的，有能力的可以自己写代码处理，这样更加的灵活。如果不想这么麻烦，Android提供了一个手势监听类GestureDetector，可以供我们使用。GestureDetector使用很方便，提供了单击，双击，长按等操作的处理，但是一般的定义界面都比较复杂，还用很多需要注意的地方，在这儿总结一下GestureDetector的使用。</p>
+<p>首先新建一个空白的工程，主界面的layout中只需要添加一个按钮就行</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android手势监听类GestureDetector的使用 - sw926 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #008080;"> 1</span> <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">RelativeLayout </span><span style="color: #ff0000;">xmlns:android</span><span style="color: #0000ff;">="http://schemas.android.com/apk/res/android"</span>
+<span style="color: #008080;"> 2</span> <span style="color: #ff0000;">    xmlns:tools</span><span style="color: #0000ff;">="http://schemas.android.com/tools"</span>
+<span style="color: #008080;"> 3</span> <span style="color: #ff0000;">    android:layout_width</span><span style="color: #0000ff;">="match_parent"</span>
+<span style="color: #008080;"> 4</span> <span style="color: #ff0000;">    android:layout_height</span><span style="color: #0000ff;">="match_parent"</span>
+<span style="color: #008080;"> 5</span> <span style="color: #ff0000;">    android:paddingBottom</span><span style="color: #0000ff;">="@dimen/activity_vertical_margin"</span>
+<span style="color: #008080;"> 6</span> <span style="color: #ff0000;">    android:paddingLeft</span><span style="color: #0000ff;">="@dimen/activity_horizontal_margin"</span>
+<span style="color: #008080;"> 7</span> <span style="color: #ff0000;">    android:paddingRight</span><span style="color: #0000ff;">="@dimen/activity_horizontal_margin"</span>
+<span style="color: #008080;"> 8</span> <span style="color: #ff0000;">    android:paddingTop</span><span style="color: #0000ff;">="@dimen/activity_vertical_margin"</span>
+<span style="color: #008080;"> 9</span> <span style="color: #ff0000;">    tools:context</span><span style="color: #0000ff;">=".MainActivity"</span> <span style="color: #0000ff;">&gt;</span>
+<span style="color: #008080;">10</span> 
+<span style="color: #008080;">11</span>     <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">Button
+</span><span style="color: #008080;">12</span>         <span style="color: #ff0000;">android:id</span><span style="color: #0000ff;">="@+id/btn_textgesture"</span>
+<span style="color: #008080;">13</span> <span style="color: #ff0000;">        android:layout_width</span><span style="color: #0000ff;">="fill_parent"</span>
+<span style="color: #008080;">14</span> <span style="color: #ff0000;">        android:layout_height</span><span style="color: #0000ff;">="fill_parent"</span>
+<span style="color: #008080;">15</span> <span style="color: #ff0000;">        android:text</span><span style="color: #0000ff;">="@string/app_name"</span> <span style="color: #0000ff;">/&gt;</span>
+<span style="color: #008080;">16</span> 
+<span style="color: #008080;">17</span> <span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">RelativeLayout</span><span style="color: #0000ff;">&gt;</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android手势监听类GestureDetector的使用 - sw926 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>由于要测试的触屏事件，所有这个按钮比较大，主界面为如下效果：</p>
+<p><img src="./Android手势监听类GestureDetector的使用 - sw926 - 博客园_files/23093316-d3eb27f0468046f4a2cd6e476588386e.png" alt="" width="244" height="363"></p>
+<p>首先介绍一下触屏事件处理的基本思路。触屏一般有三个基本事件，down按下，move移动，up离开，通过对这三个基本事件的监听，判断用户执行了何种操作。一个标准的触屏操作一般都是一系列基本事件的组合，在Android的框架中，通过onTouch（）函数可以获取基本的触屏事件，而像onClick这样的函数，已经是一系列基本事件的组合。</p>
+<p>比如，发生了Down事件，在up事件之前没有发生move事件，或者move的范围很小，并且down事件和up事件的间隔很短，这就是一个click或者singelTap事件，</p>
+<p>对比实体键盘按键的事件，实体键盘是在down事件发生后进行操作，而触屏事件一般是up事件发生后进行操作。</p>
+<p>下面是activity的代码<span style="color: #0000ff;"><br></span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android手势监听类GestureDetector的使用 - sw926 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #008080;">  1</span> <span style="color: #0000ff;">package</span><span style="color: #000000;"> com.example.testgesture;
+</span><span style="color: #008080;">  2</span> 
+<span style="color: #008080;">  3</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> android.app.Activity;
+</span><span style="color: #008080;">  4</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> android.os.Bundle;
+</span><span style="color: #008080;">  5</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> android.util.Log;
+</span><span style="color: #008080;">  6</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> android.view.GestureDetector;
+</span><span style="color: #008080;">  7</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> android.view.GestureDetector.SimpleOnGestureListener;
+</span><span style="color: #008080;">  8</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> android.view.MotionEvent;
+</span><span style="color: #008080;">  9</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> android.view.View;
+</span><span style="color: #008080;"> 10</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> android.view.View.OnTouchListener;
+</span><span style="color: #008080;"> 11</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> android.widget.Button;
+</span><span style="color: #008080;"> 12</span> 
+<span style="color: #008080;"> 13</span> <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span> MainActivity <span style="color: #0000ff;">extends</span><span style="color: #000000;"> Activity {
+</span><span style="color: #008080;"> 14</span> 
+<span style="color: #008080;"> 15</span>     <span style="color: #0000ff;">private</span><span style="color: #000000;"> Button mButton;
+</span><span style="color: #008080;"> 16</span>     <span style="color: #0000ff;">private</span><span style="color: #000000;"> GestureDetector mGestureDetector;
+</span><span style="color: #008080;"> 17</span> 
+<span style="color: #008080;"> 18</span> <span style="color: #000000;">    @Override
+</span><span style="color: #008080;"> 19</span>     <span style="color: #0000ff;">protected</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onCreate(Bundle savedInstanceState) {
+</span><span style="color: #008080;"> 20</span>         <span style="color: #0000ff;">super</span><span style="color: #000000;">.onCreate(savedInstanceState);
+</span><span style="color: #008080;"> 21</span> <span style="color: #000000;">        setContentView(R.layout.activity_main);
+</span><span style="color: #008080;"> 22</span> 
+<span style="color: #008080;"> 23</span>         mGestureDetector = <span style="color: #0000ff;">new</span> GestureDetector(<span style="color: #0000ff;">this</span>, <span style="color: #0000ff;">new</span><span style="color: #000000;"> MyOnGestureListener());
+</span><span style="color: #008080;"> 24</span> 
+<span style="color: #008080;"> 25</span>         mButton =<span style="color: #000000;"> (Button) findViewById(R.id.btn_textgesture);
+</span><span style="color: #008080;"> 26</span>         mButton.setOnTouchListener(<span style="color: #0000ff;">new</span><span style="color: #000000;"> OnTouchListener() {
+</span><span style="color: #008080;"> 27</span> 
+<span style="color: #008080;"> 28</span> <span style="color: #000000;">            @Override
+</span><span style="color: #008080;"> 29</span>             <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">boolean</span><span style="color: #000000;"> onTouch(View v, MotionEvent event) {
+</span><span style="color: #008080;"> 30</span>                 Log.i(getClass().getName(), "onTouch-----" +<span style="color: #000000;"> getActionName(event.getAction()));
+</span><span style="color: #008080;"> 31</span> <span style="color: #000000;">                mGestureDetector.onTouchEvent(event);
+</span><span style="color: #008080;"> 32</span>                 <span style="color: #008000;">//</span><span style="color: #008000;"> 一定要返回true，不然获取不到完整的事件</span>
+<span style="color: #008080;"> 33</span>                 <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">true</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 34</span> <span style="color: #000000;">            }
+</span><span style="color: #008080;"> 35</span> <span style="color: #000000;">        });
+</span><span style="color: #008080;"> 36</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;"> 37</span> 
+<span style="color: #008080;"> 38</span>     <span style="color: #0000ff;">private</span> String getActionName(<span style="color: #0000ff;">int</span><span style="color: #000000;"> action) {
+</span><span style="color: #008080;"> 39</span>         String name = ""<span style="color: #000000;">;
+</span><span style="color: #008080;"> 40</span>         <span style="color: #0000ff;">switch</span><span style="color: #000000;"> (action) {
+</span><span style="color: #008080;"> 41</span>             <span style="color: #0000ff;">case</span><span style="color: #000000;"> MotionEvent.ACTION_DOWN: {
+</span><span style="color: #008080;"> 42</span>                 name = "ACTION_DOWN"<span style="color: #000000;">;
+</span><span style="color: #008080;"> 43</span>                 <span style="color: #0000ff;">break</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 44</span> <span style="color: #000000;">            }
+</span><span style="color: #008080;"> 45</span>             <span style="color: #0000ff;">case</span><span style="color: #000000;"> MotionEvent.ACTION_MOVE: {
+</span><span style="color: #008080;"> 46</span>                 name = "ACTION_MOVE"<span style="color: #000000;">;
+</span><span style="color: #008080;"> 47</span>                 <span style="color: #0000ff;">break</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 48</span> <span style="color: #000000;">            }
+</span><span style="color: #008080;"> 49</span>             <span style="color: #0000ff;">case</span><span style="color: #000000;"> MotionEvent.ACTION_UP: {
+</span><span style="color: #008080;"> 50</span>                 name = "ACTION_UP"<span style="color: #000000;">;
+</span><span style="color: #008080;"> 51</span>                 <span style="color: #0000ff;">break</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 52</span> <span style="color: #000000;">            }
+</span><span style="color: #008080;"> 53</span>             <span style="color: #0000ff;">default</span><span style="color: #000000;">:
+</span><span style="color: #008080;"> 54</span>             <span style="color: #0000ff;">break</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 55</span> <span style="color: #000000;">        }
+</span><span style="color: #008080;"> 56</span>         <span style="color: #0000ff;">return</span><span style="color: #000000;"> name;
+</span><span style="color: #008080;"> 57</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;"> 58</span> 
+<span style="color: #008080;"> 59</span>     <span style="color: #0000ff;">class</span> MyOnGestureListener <span style="color: #0000ff;">extends</span><span style="color: #000000;"> SimpleOnGestureListener {
+</span><span style="color: #008080;"> 60</span> <span style="color: #000000;">        @Override
+</span><span style="color: #008080;"> 61</span>         <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">boolean</span><span style="color: #000000;"> onSingleTapUp(MotionEvent e) {
+</span><span style="color: #008080;"> 62</span>             Log.i(getClass().getName(), "onSingleTapUp-----" +<span style="color: #000000;"> getActionName(e.getAction()));
+</span><span style="color: #008080;"> 63</span>             <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">false</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 64</span> <span style="color: #000000;">        }
+</span><span style="color: #008080;"> 65</span> 
+<span style="color: #008080;"> 66</span> <span style="color: #000000;">        @Override
+</span><span style="color: #008080;"> 67</span>         <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onLongPress(MotionEvent e) {
+</span><span style="color: #008080;"> 68</span>             Log.i(getClass().getName(), "onLongPress-----" +<span style="color: #000000;"> getActionName(e.getAction()));
+</span><span style="color: #008080;"> 69</span> <span style="color: #000000;">        }
+</span><span style="color: #008080;"> 70</span> 
+<span style="color: #008080;"> 71</span> <span style="color: #000000;">        @Override
+</span><span style="color: #008080;"> 72</span>         <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">boolean</span> onScroll(MotionEvent e1, MotionEvent e2, <span style="color: #0000ff;">float</span> distanceX, <span style="color: #0000ff;">float</span><span style="color: #000000;"> distanceY) {
+</span><span style="color: #008080;"> 73</span> <span style="color: #000000;">            Log.i(getClass().getName(),
+</span><span style="color: #008080;"> 74</span>                     "onScroll-----" + getActionName(e2.getAction()) + ",(" + e1.getX() + "," + e1.getY() + ") ,("
+<span style="color: #008080;"> 75</span>                             + e2.getX() + "," + e2.getY() + ")"<span style="color: #000000;">);
+</span><span style="color: #008080;"> 76</span>             <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">false</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 77</span> <span style="color: #000000;">        }
+</span><span style="color: #008080;"> 78</span> 
+<span style="color: #008080;"> 79</span> <span style="color: #000000;">        @Override
+</span><span style="color: #008080;"> 80</span>         <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">boolean</span> onFling(MotionEvent e1, MotionEvent e2, <span style="color: #0000ff;">float</span> velocityX, <span style="color: #0000ff;">float</span><span style="color: #000000;"> velocityY) {
+</span><span style="color: #008080;"> 81</span> <span style="color: #000000;">            Log.i(getClass().getName(),
+</span><span style="color: #008080;"> 82</span>                     "onFling-----" + getActionName(e2.getAction()) + ",(" + e1.getX() + "," + e1.getY() + ") ,("
+<span style="color: #008080;"> 83</span>                             + e2.getX() + "," + e2.getY() + ")"<span style="color: #000000;">);
+</span><span style="color: #008080;"> 84</span>             <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">false</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 85</span> <span style="color: #000000;">        }
+</span><span style="color: #008080;"> 86</span> 
+<span style="color: #008080;"> 87</span> <span style="color: #000000;">        @Override
+</span><span style="color: #008080;"> 88</span>         <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onShowPress(MotionEvent e) {
+</span><span style="color: #008080;"> 89</span>             Log.i(getClass().getName(), "onShowPress-----" +<span style="color: #000000;"> getActionName(e.getAction()));
+</span><span style="color: #008080;"> 90</span> <span style="color: #000000;">        }
+</span><span style="color: #008080;"> 91</span> 
+<span style="color: #008080;"> 92</span> <span style="color: #000000;">        @Override
+</span><span style="color: #008080;"> 93</span>         <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">boolean</span><span style="color: #000000;"> onDown(MotionEvent e) {
+</span><span style="color: #008080;"> 94</span>             Log.i(getClass().getName(), "onDown-----" +<span style="color: #000000;"> getActionName(e.getAction()));
+</span><span style="color: #008080;"> 95</span>             <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">false</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 96</span> <span style="color: #000000;">        }
+</span><span style="color: #008080;"> 97</span> 
+<span style="color: #008080;"> 98</span> <span style="color: #000000;">        @Override
+</span><span style="color: #008080;"> 99</span>         <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">boolean</span><span style="color: #000000;"> onDoubleTap(MotionEvent e) {
+</span><span style="color: #008080;">100</span>             Log.i(getClass().getName(), "onDoubleTap-----" +<span style="color: #000000;"> getActionName(e.getAction()));
+</span><span style="color: #008080;">101</span>             <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">false</span><span style="color: #000000;">;
+</span><span style="color: #008080;">102</span> <span style="color: #000000;">        }
+</span><span style="color: #008080;">103</span> 
+<span style="color: #008080;">104</span> <span style="color: #000000;">        @Override
+</span><span style="color: #008080;">105</span>         <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">boolean</span><span style="color: #000000;"> onDoubleTapEvent(MotionEvent e) {
+</span><span style="color: #008080;">106</span>             Log.i(getClass().getName(), "onDoubleTapEvent-----" +<span style="color: #000000;"> getActionName(e.getAction()));
+</span><span style="color: #008080;">107</span>             <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">false</span><span style="color: #000000;">;
+</span><span style="color: #008080;">108</span> <span style="color: #000000;">        }
+</span><span style="color: #008080;">109</span> 
+<span style="color: #008080;">110</span> <span style="color: #000000;">        @Override
+</span><span style="color: #008080;">111</span>         <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">boolean</span><span style="color: #000000;"> onSingleTapConfirmed(MotionEvent e) {
+</span><span style="color: #008080;">112</span>             Log.i(getClass().getName(), "onSingleTapConfirmed-----" +<span style="color: #000000;"> getActionName(e.getAction()));
+</span><span style="color: #008080;">113</span>             <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">false</span><span style="color: #000000;">;
+</span><span style="color: #008080;">114</span> <span style="color: #000000;">        }
+</span><span style="color: #008080;">115</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">116</span> }</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android手势监听类GestureDetector的使用 - sw926 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;</p>
+<p>首先是声明一个GestureDetector，然后重写Button的onTouch函数，将触屏事件交给GestureDetector处理。</p>
+<p><strong>首先做一个对按钮做一个单击</strong></p>
+<p><img src="./Android手势监听类GestureDetector的使用 - sw926 - 博客园_files/23103149-5a22fb203fb840ca822d21c67c63db8e.png" alt=""></p>
+<p>onSingleTapUp被调用，说明发生了单击事件，onSingleTapConfirmed被调用，说明确认发生了一个单击事件，不是双击的事件。需要注意的是onSingleTapUp已经是一click事件，onSingleTapUp触发的时候是<strong>ACTION_UP</strong>事件。onSingleTapConfirmed是在用户手指<strong>离开屏幕</strong>后触发，所有up并不是所有触屏事件的结束。</p>
+<p><strong>做一个双击的操作</strong></p>
+<p><img src="./Android手势监听类GestureDetector的使用 - sw926 - 博客园_files/23103932-b0ade7d2a1424fbf91b7b4ff442b32f4.png" alt=""></p>
+<p>首先发生了一个onSingleTapUp，说明完成了一次单击事件，然后发生了onDoubleTap，至此，一次双击事件已经完成。我们可以看到，onDoubleTap发生的时候是<strong>ACTION_DOWN</strong>事件，也就是说双击事件是第二次按下屏幕的时候触发，而不是第二次离开屏幕的时候触发，在onDoubleTap发生之后，就可以在onDoubleTapEvent中监听到双击事件发生后从按下到弹起的所有触屏事件。onDoubleTap发生后不会触发onSingleTapUp和onSingleTapConfirmed。</p>
+<p><strong>做一个长按的操作</strong></p>
+<p><img src="./Android手势监听类GestureDetector的使用 - sw926 - 博客园_files/23105652-51f5cb2e8fed4feea43df07ca2483c00.png" alt=""></p>
+<p>onLongPress实在<strong>ACTION_DOWN</strong>时发生，onLongPress发生后在up之前不会用其他事件触发，可以在<strong>onShowPress</strong>处理状态的改变，比如按钮的按下状态。</p>
+<p><strong>做一个滑动操作</strong></p>
+<p><img src="./Android手势监听类GestureDetector的使用 - sw926 - 博客园_files/23111225-8691ef25b5a6433ea5f9b9b7035852a0.png" alt=""></p>
+<p>onScroll事件是拖动，onFling是抛。结合log来了解一下。首先是ACTION_DOWN，之后多次ACTION_MOVE，移动超过一定距离，触发了onScroll，如果onScroll被触发，<strong>在up之前是不会有长按，单击，双击等事件的</strong>。看一下onScroll的参数</p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">boolean</span> onScroll(MotionEvent e1, MotionEvent e2, <span style="color: #0000ff;">float</span> distanceX, <span style="color: #0000ff;">float</span> distanceY)</pre>
+</div>
+<p>e1为第一次按下的事件，和onDown事件里面的一样，e2为当前的事件，distanceX为本次onScroll移动的X轴距离，distanceY为移动的Y轴距离，移动的距离是相对于上一次onScroll事件的移动距离，而不是当前点和按下点的距离。</p>
+<p>这次滑动最后触发了onFling事件，但是onFling事件的触发不是一定的，onFling是在ACTION_UP触发，平时列表在离开屏幕是继续滚动，就是通过这种方式触发。</p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">boolean</span> onFling(MotionEvent e1, MotionEvent e2, <span style="color: #0000ff;">float</span> velocityX, <span style="color: #0000ff;">float</span> velocityY) </pre>
+</div>
+<p>onFling的前两个参数和onScroll相同，e2为用户拖动完离开屏幕时的点。veloctiyX，velocitY为离开屏幕时的初始速度，以这两个速度为初始速度做匀减速运动，就是现在拖动列表和拖动图片的各种缓存滚动的效果。</p>
+<p><strong>函数的返回值</strong></p>
+<p>除了onLongPress，这些函数都是有返回值的，</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android手势监听类GestureDetector的使用 - sw926 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #008080;"> 1</span>         mButton.setOnTouchListener(<span style="color: #0000ff;">new</span><span style="color: #000000;"> OnTouchListener() {
+</span><span style="color: #008080;"> 2</span> 
+<span style="color: #008080;"> 3</span> <span style="color: #000000;">            @Override
+</span><span style="color: #008080;"> 4</span>             <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">boolean</span><span style="color: #000000;"> onTouch(View v, MotionEvent event) {
+</span><span style="color: #008080;"> 5</span>                 Log.i(getClass().getName(), "onTouch-----" +<span style="color: #000000;"> getActionName(event.getAction()));
+</span><span style="color: #008080;"> 6</span> <span style="color: #000000;">                mGestureDetector.onTouchEvent(event);
+</span><span style="color: #008080;"> 7</span>                 <span style="color: #008000;">//</span><span style="color: #008000;"> 一定要返回true，不然获取不到完整的事件</span>
+<span style="color: #008080;"> 8</span>                 <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">true</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 9</span> <span style="color: #000000;">            }
+</span><span style="color: #008080;">10</span>         });</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android手势监听类GestureDetector的使用 - sw926 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p><span><br>这些返回值会通过 mGestureDetector.onTouchEvent(event); 传递给onTouch。<br></span></p>
+<p><strong>最后总结一下</strong></p>
+<p>GestureDetector结合SimpleOnGestureListener可以很方便的获取到单击，双击，长按等事件，但是对这些事件的处理不是简单的在对应的函数里做一些操作就可以的，复杂的自定义视图还是要在onTouch里面进行判断个个控件的焦点状态，而且GestureDetector也不是万能的，你如果要处理长按之后的移动，就要费一番功夫了，以为GestureDetector在长按发生后是不会在有onScroll的，你只能通过onTouch里面的ACTION_MOVE处理。</p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag">标签: <a href="http://www.cnblogs.com/sw926/tag/android/">android</a>, <a href="http://www.cnblogs.com/sw926/tag/GestureDetector/">GestureDetector</a>, <a href="http://www.cnblogs.com/sw926/tag/%E8%A7%A6%E5%B1%8F%E4%BA%8B%E4%BB%B6/">触屏事件</a></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(3208158,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;301a890d-d7ea-df11-ac81-842b2b196315&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./Android手势监听类GestureDetector的使用 - sw926 - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./Android手势监听类GestureDetector的使用 - sw926 - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/sw926/" target="_blank"><img src="./Android手势监听类GestureDetector的使用 - sw926 - 博客园_files/u189715.jpg" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/sw926/">sw926</a><br>
+            <a href="http://home.cnblogs.com/u/sw926/followees">关注 - 1</a><br>
+            <a href="http://home.cnblogs.com/u/sw926/followers">粉丝 - 24</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;301a890d-d7ea-df11-ac81-842b2b196315&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(3208158,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">1</span>
+    </div>
+    <div class="buryit" onclick="votePost(3208158,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/sw926/p/3195946.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/sw926/p/3195946.html" title="发布于2013-07-17 15:29">开源阅读器FBReader Android版本的编译</a><br><a href="http://www.cnblogs.com/sw926/p/3209615.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/sw926/p/3209615.html" title="发布于2013-07-23 22:51">提高eclipse使用效率</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2013-07-23 11:48</span> <a href="http://www.cnblogs.com/sw926/">sw926</a> 阅读(<span id="post_view_count">23982</span>) 评论(<span id="post_comment_count">2</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=3208158" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/sw926/p/3208158.html#" onclick="AddToWz(3208158);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=116516,cb_entryId=3208158,cb_blogApp=currentBlogApp,cb_blogUserGuid='301a890d-d7ea-df11-ac81-842b2b196315',cb_entryCreatedDate='2013/7/23 11:48:00';loadViewCount(cb_entryId);</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<br>
+<div class="feedback_area_title">评论列表</div>
+<div class="feedbackNoItems"></div>	
+
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/sw926/p/3208158.html#2733419" class="layer">#1楼</a><a name="2733419" id="comment_anchor_2733419"></a>  <span class="comment_date">2013-07-23 14:53</span> <a id="a_comment_author_2733419" href="http://home.cnblogs.com/u/540967/" target="_blank">508-小太阳</a> <a href="http://msg.cnblogs.com/send/508-%E5%B0%8F%E5%A4%AA%E9%98%B3" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2733419" class="blog_comment_body">Android开发非常的主流，很受人们的亲睐，关于Android方面，<a href="http://www.ndapp.xn--net-s18djc3i5nq58i3rmyq2bsk0e/" target="_blank">http://www.ndapp.net也是一个很不错的</a>，LZ可以去看看！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2733419,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2733419,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/sw926/p/3208158.html#3656572" class="layer">#2楼</a><a name="3656572" id="comment_anchor_3656572"></a><span id="comment-maxId" style="display:none;">3656572</span><span id="comment-maxDate" style="display:none;">2017/3/31 15:46:29</span>  <span class="comment_date">2017-03-31 15:46</span> <a id="a_comment_author_3656572" href="http://www.cnblogs.com/atingjia/" target="_blank">小刀是超人！</a> <a href="http://msg.cnblogs.com/send/%E5%B0%8F%E5%88%80%E6%98%AF%E8%B6%85%E4%BA%BA%EF%BC%81" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3656572" class="blog_comment_body">看了你写的豁然开朗，非常感谢！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3656572,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3656572,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3656572_avatar" style="display:none;">http://pic.cnblogs.com/face/1114024/20170303111048.png</span>
+			</div>
+		</div>
+	<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/sw926/p/3208158.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/sw926/p/3208158.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="https://cloud.tencent.com/act/free?fromSource=gwzcw.436817.436817.436817" target="_blank">【力荐】普惠云计算 0门槛体验 30+云产品免费半年</a><br><a href="http://www.gcpowertools.com.cn/products/spreadjs/?utm_source=cnblogs&amp;utm_medium=blogpage&amp;utm_term=bottom&amp;utm_content=SpreadJS&amp;utm_campaign=community" target="_blank">【推荐】可嵌入您系统的“在线Excel”！SpreadJS 纯前端表格控件</a><br><a href="http://click.aliyun.com/m/18488/" target="_blank">【推荐】阿里云“全民云计算”优惠升级</a><br></div>
+<div id="opt_under_post"></div>
+<div id="cnblogs_c1" class="c_ad_block"><a href="https://www.mtyun.com/promote/ab6dceaa-8a4f-45b4-9946-e2fe5564266a/" target="_blank"><img width="300" height="250" src="./Android手势监听类GestureDetector的使用 - sw926 - 博客园_files/24442-20170906183359226-1435856414.jpg" alt="美团云0907"></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/578062/" target="_blank">微软小娜将直播苹果新品发布会</a><br> ·  <a href="http://news.cnblogs.com/n/578061/" target="_blank">「云+未来」上海峰会，报名开启</a><br> ·  <a href="http://news.cnblogs.com/n/578060/" target="_blank">十周年的iPhone，永远改变了手机、苹果、世界和你我</a><br> ·  <a href="http://news.cnblogs.com/n/578058/" target="_blank">Facebook发布JavaScript包管理器Yarn 1.0</a><br> ·  <a href="http://news.cnblogs.com/n/578057/" target="_blank">Java将每半年发布一个版本</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="cnblogs_c2" class="c_ad_block"><a href="https://www.jiguang.cn/devservice?source=bky&amp;hmsr=%E5%8D%9A%E5%AE%A2%E5%9B%AD&amp;hmpl=&amp;hmcu=&amp;hmkw=&amp;hmci=" target="_blank"><img width="468" height="60" src="./Android手势监听类GestureDetector的使用 - sw926 - 博客园_files/24442-20170908132742304-1045119416.gif" alt="极光0908"></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/575829/" target="_blank">做到这一点，你也可以成为优秀的程序员</a><br> ·  <a href="http://kb.cnblogs.com/page/566880/" target="_blank">写给立志做码农的大学生</a><br> ·  <a href="http://kb.cnblogs.com/page/569057/" target="_blank">架构腐化之谜</a><br> ·  <a href="http://kb.cnblogs.com/page/572854/" target="_blank">学会思考，而不只是编程</a><br> ·  <a href="http://kb.cnblogs.com/page/574767/" target="_blank">编写Shell脚本的最佳实践</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/sw926/">sw926</a><br>园龄：<a href="http://home.cnblogs.com/u/sw926/" title="入园时间：2010-11-08">6年10个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/sw926/followers/">24</a><br>关注：<a href="http://home.cnblogs.com/u/sw926/followees/">1</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;301a890d-d7ea-df11-ac81-842b2b196315&#39;)">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/08/01&#39;);return false;">&lt;</a></td><td align="center">2017年9月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/10/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">27</td><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td><td class="CalOtherMonthDay" align="center">31</td><td align="center">1</td><td class="CalWeekendDay" align="center">2</td></tr><tr><td class="CalWeekendDay" align="center">3</td><td align="center">4</td><td align="center">5</td><td align="center">6</td><td align="center">7</td><td align="center">8</td><td class="CalWeekendDay" align="center">9</td></tr><tr><td class="CalWeekendDay" align="center">10</td><td align="center">11</td><td class="CalTodayDay" align="center">12</td><td align="center">13</td><td align="center">14</td><td align="center">15</td><td class="CalWeekendDay" align="center">16</td></tr><tr><td class="CalWeekendDay" align="center">17</td><td align="center">18</td><td align="center">19</td><td align="center">20</td><td align="center">21</td><td align="center">22</td><td class="CalWeekendDay" align="center">23</td></tr><tr><td class="CalWeekendDay" align="center">24</td><td align="center">25</td><td align="center">26</td><td align="center">27</td><td align="center">28</td><td align="center">29</td><td class="CalWeekendDay" align="center">30</td></tr><tr><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td><td class="CalOtherMonthDay" align="center">7</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<div class="catListLink">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/sw926/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="http://www.cnblogs.com/sw926/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="http://www.cnblogs.com/sw926/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="http://www.cnblogs.com/sw926/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="http://www.cnblogs.com/sw926/tag/" title="我的博客的标签列表">我的标签</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+<ul>
+
+</ul>
+</div>
+</div></div><div id="sidebar_toptags" class="sidebar-block">
+<div class="catListTag">
+<h3 class="catListTitle">我的标签</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/sw926/tag/android/">android</a>(19)</li><li><a href="http://www.cnblogs.com/sw926/tag/Android%20Studio/">Android Studio</a>(3)</li><li><a href="http://www.cnblogs.com/sw926/tag/Ant/">Ant</a>(3)</li><li><a href="http://www.cnblogs.com/sw926/tag/eclipse/">eclipse</a>(3)</li><li><a href="http://www.cnblogs.com/sw926/tag/Sqlite/">Sqlite</a>(3)</li><li><a href="http://www.cnblogs.com/sw926/tag/Java/">Java</a>(2)</li><li><a href="http://www.cnblogs.com/sw926/tag/NDK/">NDK</a>(1)</li><li><a href="http://www.cnblogs.com/sw926/tag/PopupWindow/">PopupWindow</a>(1)</li><li><a href="http://www.cnblogs.com/sw926/tag/TortoiseSVN/">TortoiseSVN</a>(1)</li><li><a href="http://www.cnblogs.com/sw926/tag/%E8%A7%A6%E5%B1%8F%E4%BA%8B%E4%BB%B6/">触屏事件</a>(1)</li><li><a href="http://www.cnblogs.com/sw926/tag/">更多</a></li>
+</ul>
+</div></div><div id="sidebar_categories">
+<div id="sidebar_postarchive" class="catListPostArchive sidebar-block">
+<h3 class="catListTitle">随笔档案</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/sw926/archive/2016/11.html">2016年11月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/sw926/archive/2016/09.html">2016年9月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/sw926/archive/2016/06.html">2016年6月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/sw926/archive/2016/05.html">2016年5月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/sw926/archive/2015/03.html">2015年3月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/sw926/archive/2014/11.html">2014年11月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/sw926/archive/2014/09.html">2014年9月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/sw926/archive/2014/08.html">2014年8月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/sw926/archive/2014/06.html">2014年6月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/sw926/archive/2013/11.html">2013年11月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/sw926/archive/2013/09.html">2013年9月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_11" href="http://www.cnblogs.com/sw926/archive/2013/08.html">2013年8月 (8)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_12" href="http://www.cnblogs.com/sw926/archive/2013/07.html">2013年7月 (3)</a> </li>
+
+</ul>
+
+</div>
+
+<div id="sidebar_articlecategory" class="catListArticleCategory sidebar-block">
+<h3 class="catListTitle">文章分类</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/sw926/category/601709.html">Android</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_scorerank" class="sidebar-block">
+<div class="catListBlogRank">
+<h3 class="catListTitle">积分与排名</h3>
+<ul>
+	<li class="liScore">
+		积分 -	44138
+	</li>
+	<li class="liRank">
+		排名 -	7282
+	</li>
+</ul>
+</div>
+
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/sw926/p/3230659.html#3771728">1. Re:Android PopupWindow的使用技巧</a></li>
+        <li class="recent_comment_body">好东西。</li>
+        <li class="recent_comment_author">--最强的嘻嘻</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/sw926/p/5870326.html#3721515">2. Re:Kotlin从入门到掉坑里</a></li>
+        <li class="recent_comment_body">研究研究</li>
+        <li class="recent_comment_author">--bigroc</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/sw926/p/5870326.html#3707230">3. Re:Kotlin从入门到掉坑里</a></li>
+        <li class="recent_comment_body">kotlin转换成java：菜单--Tools&gt;Kotlin&gt;Show Kotlin Bytecode--Decompile</li>
+        <li class="recent_comment_author">--zk0301</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/sw926/p/5870326.html#3704129">4. Re:Kotlin从入门到掉坑里</a></li>
+        <li class="recent_comment_body">@斯克迪亚转换是单向的，只能从java转换到kotlin...</li>
+        <li class="recent_comment_author">--sw926</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/sw926/p/5870326.html#3696980">5. Re:Kotlin从入门到掉坑里</a></li>
+        <li class="recent_comment_body">我看到说项目里可以自动转换两者的代码，复制kotlin代码到java文件中，或者反之，即可自动转换。</li>
+        <li class="recent_comment_author">--斯克迪亚</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/sw926/p/3230659.html">1. Android PopupWindow的使用技巧(63030)</a></li><li><a href="http://www.cnblogs.com/sw926/p/3208158.html">2. Android手势监听类GestureDetector的使用(23979)</a></li><li><a href="http://www.cnblogs.com/sw926/p/5870326.html">3. Kotlin从入门到掉坑里(16872)</a></li><li><a href="http://www.cnblogs.com/sw926/p/3314165.html">4. Android代码混淆官方实现方法(9769)</a></li><li><a href="http://www.cnblogs.com/sw926/p/3238512.html">5. 在Android开发中使用Ant 一：环境的搭建及入门(7686)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/sw926/p/3309619.html">1. TortoiseSVN使用方法(8)</a></li><li><a href="http://www.cnblogs.com/sw926/p/3230659.html">2. Android PopupWindow的使用技巧(7)</a></li><li><a href="http://www.cnblogs.com/sw926/p/3242769.html">3. 在Android开发中使用Ant 三：批量打包(6)</a></li><li><a href="http://www.cnblogs.com/sw926/p/3209615.html">4. 提高eclipse使用效率(6)</a></li><li><a href="http://www.cnblogs.com/sw926/p/3232311.html">5. 无需cygwin，使用NDK进行开发(5)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/sw926/p/3230659.html">1. Android PopupWindow的使用技巧(7)</a></li><li><a href="http://www.cnblogs.com/sw926/p/3309619.html">2. TortoiseSVN使用方法(7)</a></li><li><a href="http://www.cnblogs.com/sw926/p/3300747.html">3. 提高eclipse使用效率（二） 提高Android开发效率的小技巧(5)</a></li><li><a href="http://www.cnblogs.com/sw926/p/5870326.html">4. Kotlin从入门到掉坑里(5)</a></li><li><a href="http://www.cnblogs.com/sw926/p/4298149.html">5. 从Eclipse迁移到Android Studio(3)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2017 sw926
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+</body></html>
