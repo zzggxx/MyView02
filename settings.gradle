@@ -1,1 +1,1 @@
-include ':GestureDetector'
+include ':GestureDetector', ':ClickView'

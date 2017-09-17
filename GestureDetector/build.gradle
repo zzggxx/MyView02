@@ -11,10 +11,39 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    productFlavors {
+        self {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "channel_self"]
+        }
+        channel_tencent{
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "channel_tencent"]
+        }
+        channel_huawei{
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "channel_huawei"]
+        }
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("C:/Users/Lenovo/AndroidStudioProjects/JKS/MyView02GestureDetetor/GestureDetetorTest.jks")
+            storePassword "12346578"
+            keyAlias "hahaheheheihei"
+            keyPassword "12346578"
+        }
+    }
+
     buildTypes {
         release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+
+        debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 }
