@@ -61,7 +61,8 @@ android {
             def outDirectory
             if ("true".equals(IS_JENKINS)) {
                 timeNow = BUILD_TIME
-                outDirectory = BUILD_PATH
+//                outDirectory = BUILD_PATH
+                outDirectory = output.outputFile.getParent()
                 newName = 'GestureDetetor-v' + defaultConfig.versionName + '-' +
                         variant.productFlavors[0].name + '-' + variant.buildType.name + '.apk'
             } else {
