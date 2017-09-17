@@ -1,5 +1,12 @@
 apply plugin: 'com.android.application'
 
+def getDate() {
+    def date = new Date()
+//    不能出现时间点:,这样子,文件名就会出现问题的,是非法命名路径.
+    def formattedDate = date.format('yyyy-MM-dd_HH-mm')
+    return formattedDate
+}
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.3"
@@ -7,8 +14,8 @@ android {
         applicationId "com.example.will.myview02"
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        versionCode 381
+        versionName "3.8.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -16,10 +23,10 @@ android {
         self {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "channel_self"]
         }
-        channel_tencent{
+        channel_tencent {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "channel_tencent"]
         }
-        channel_huawei{
+        channel_huawei {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "channel_huawei"]
         }
     }
@@ -46,6 +53,32 @@ android {
             signingConfig signingConfigs.release
         }
     }
+
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def newName
+            def timeNow
+            def outDirectory
+            if ("true".equals(IS_JENKINS)) {
+                timeNow = BUILD_TIME
+                outDirectory = BUILD_PATH
+                newName = 'GestureDetetor-v' + defaultConfig.versionName + '-' +
+                        variant.productFlavors[0].name + '-' + variant.buildType.name + '.apk'
+            } else {
+                timeNow = getDate()
+                outDirectory = output.outputFile.getParent()
+                if ('debug'.equals(variant.buildType.name)) {
+                    newName = 'GestureDetetor-v' + defaultConfig.versionName + '-' +
+                            variant.productFlavors[0].name + '-' + variant.buildType.name + '.apk'
+                } else {
+                    newName = 'GestureDetetor-v' + defaultConfig.versionName + '-' +
+                            variant.productFlavors[0].name + '-' + variant.buildType.name + '.apk'
+                }
+            }
+            output.outputFile = new File(outDirectory + '/' + timeNow, newName)
+        }
+    }
+
 }
 
 dependencies {
