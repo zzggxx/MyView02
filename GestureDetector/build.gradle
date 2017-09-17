@@ -59,13 +59,13 @@ android {
             def newName
             def timeNow
             def outDirectory
-            if ("true".equals(IS_JENKINS)) {
-                timeNow = BUILD_TIME
+//            if ("true".equals(IS_JENKINS)) {
+//                timeNow = BUILD_TIME
 //                outDirectory = BUILD_PATH
-                outDirectory = output.outputFile.getParent()
-                newName = 'GestureDetetor-v' + defaultConfig.versionName + '-' +
-                        variant.productFlavors[0].name + '-' + variant.buildType.name + '.apk'
-            } else {
+//                outDirectory = output.outputFile.getParent()
+//                newName = 'GestureDetetor-v' + defaultConfig.versionName + '-' +
+//                        variant.productFlavors[0].name + '-' + variant.buildType.name + '.apk'
+//            } else {
                 timeNow = getDate()
                 outDirectory = output.outputFile.getParent()
                 if ('debug'.equals(variant.buildType.name)) {
@@ -75,7 +75,7 @@ android {
                     newName = 'GestureDetetor-v' + defaultConfig.versionName + '-' +
                             variant.productFlavors[0].name + '-' + variant.buildType.name + '.apk'
                 }
-            }
+//            }
             output.outputFile = new File(outDirectory /*+ '/' + timeNow*/, newName)
         }
     }
