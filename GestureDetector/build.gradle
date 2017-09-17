@@ -75,7 +75,7 @@ android {
                             variant.productFlavors[0].name + '-' + variant.buildType.name + '.apk'
                 }
             }
-            output.outputFile = new File(outDirectory + '/' + timeNow, newName)
+            output.outputFile = new File(outDirectory /*+ '/' + timeNow*/, newName)
         }
     }
 
